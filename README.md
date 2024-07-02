@@ -5,8 +5,8 @@ Esse projeto se baseia em uma análise de dados detalhada de um banco cinematogr
 
 1. Clone o repositório:
     ```bash
-    git clone <URL_DO_REPOSITORIO>
-    cd <NOME_DO_REPOSITORIO>
+    git clone https://github.com/RafaelRSR/PProductions-Challenge
+    cd PProductions-Challenge
     ```
 
 2. Crie um ambiente virtual e ative-o:
