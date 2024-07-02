@@ -1,0 +1,35 @@
+genre_dummies = imdb_data['Genre'].str.get_dummies(sep=', ')
+
+certificate_dummies = pd.get_dummies(imdb_data['Certificate'], prefix='Cert')
+
+imdb_data = pd.concat([imdb_data, genre_dummies, certificate_dummies], axis=1)
+
+features = ['Gross', 'Meta_score', 'Runtime', 'No_of_Votes'] + list(genre_dummies.columns) + list(certificate_dummies.columns)
+X = imdb_data[features]
+y = imdb_data['IMDB_Rating']
+
+
+categorical_features = list(certificate_dummies.columns)
+one_hot_encoder = OneHotEncoder(handle_unknown='ignore')
+one_hot_encoder.fit(X[categorical_features])
+
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('num', StandardScaler(), ['Gross', 'Meta_score', 'Runtime', 'No_of_Votes']),
+        ('cat', one_hot_encoder, categorical_features)
+    ],
+    remainder='passthrough'
+)
+
+pipeline = Pipeline(steps=[
+    ('preprocessor', preprocessor),
+    ('regressor', LinearRegression())
+])
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+pipeline.fit(X_train, y_train)
+
+y_pred = pipeline.predict(X_test)
+print('Mean Squared Error:', mean_squared_error(y_test, y_pred))
+print('R^2 Score:', r2_score(y_test, y_pred))
