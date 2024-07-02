@@ -27,6 +27,18 @@ Esse projeto se baseia em uma análise de dados detalhada de um banco cinematogr
     jupyter notebook
     ```
 
+## Usando o Arquivo .pkl
+
+O arquivo `.pkl` contém o modelo treinado para previsão da nota do IMDB. Para usá-lo, siga os passos abaixo:
+
+1. Carregue o modelo a partir do arquivo `.pkl`:
+    ```python
+    import joblib
+
+    # Carregar o modelo treinado
+    model = joblib.load('model.pkl')
+    ```
+
 2. No navegador, abra o arquivo `LH_CD_RAFAELSROCHA.ipynb`.
 
 3. Execute as células do notebook para reproduzir a análise.
